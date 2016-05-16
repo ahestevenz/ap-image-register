@@ -36,13 +36,23 @@ int ImageRegister::getImages(string fixed_path, string moving_path)
   return OK;
 }
 
+Mat ImageRegister::calLog2(Mat image)
+{
+  Mat loge_mat;
+  log(image,loge_mat);
+  Mat log2_mat=loge_mat/log(2);
+  
+  return log2_mat;
+}
+
+
 Mat ImageRegister::calHistogram(Mat image)
 {
   Mat hist=Mat::zeros(1,histSize,CV_32FC1);
   
   if (image.channels()==3) cvtColor(image, image, CV_RGB2GRAY);
   
-  float range[] = { 0, 256 };
+  float range[] = { 0, 255 };
   const float* hist_range = range; 
   
   calcHist( &image, 1, 0, Mat(), hist, 1, &histSize, &hist_range );
@@ -71,12 +81,13 @@ Mat ImageRegister::calJointHistogram(Mat image_1, Mat image_2)
   return jpdf;  
 }
 
-Mat ImageRegister::calEntropy(Mat image)
-{
-  /* TODO
-   * > Implement this method
-   */
-  Mat entropy; 
+float ImageRegister::calEntropy(Mat image)
+{ 
+  float entropy; 
+  Mat hist=calHistogram(image);
+  hist/=image.total();
+  Mat logP=calLog2(hist);      
+  entropy = -1*sum(hist.mul(logP)).val[0];  
   
   return entropy;
 }

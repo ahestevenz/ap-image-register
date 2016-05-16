@@ -20,12 +20,15 @@ namespace ap
     int getImages(string fixed_path, string moving_path);
     Mat calHistogram(Mat image);
     Mat calJointHistogram(Mat image_1, Mat image_2);
-    Mat calEntropy(Mat image);
+    float calEntropy(Mat image);
     Mat calJointEntropy(Mat image_1, Mat image_2);
     Mat calMutualInformation(Mat image_1, Mat image_2);
     double calMaxMutualInformationValue(Mat image_1, Mat image_2);
       
-    /* Testing*/    
+    /* Testing*/  
+    
+  private:
+    Mat calLog2(Mat image);
             
   public:
     static const int OK=0;
