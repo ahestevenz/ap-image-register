@@ -15,7 +15,7 @@ int main( int argc, char** argv )
    * > Bash script: DICOM -> JPG or make a C++ class to manage this.
    * > C++ Library or class to manage graphics.
    * > GUI to explore images to make the program easier to use.
-   * > Args parser too for bash or perl scripts
+   * > Args parser tool for bash or perl scripts
    */
   ImageRegister imgRegister("ct.jpg","pet.jpg");    
   
@@ -55,6 +55,10 @@ int main( int argc, char** argv )
                        Point( bin_w*(i), hist_h - cvRound(hist_moving.at<float>(i)) ),
                        Scalar( 255, 0, 0), 2, 8, 0  );      
   }
+  /* Testing */
+  
+  cout << "Fixed image entropy : " << imgRegister.calEntropy(imgRegister.getFixedImage()) << endl;
+  cout << "Moving image entropy : " << imgRegister.calEntropy(imgRegister.getMovingImage()) << endl;
   
   /* Display images and histograms */
   
