@@ -16,18 +16,18 @@ namespace ap
       
   public:
     ImageRegister(string fixed_path,string moving_path);
-    ~ImageRegister();
-    int getImages(string fixed_path, string moving_path);
+    ~ImageRegister();    
     Mat calHistogram(Mat image);
     Mat calJointHistogram(Mat image_1, Mat image_2);
     float calEntropy(Mat image);
-    Mat calJointEntropy(Mat image_1, Mat image_2);
+    float calJointEntropy(Mat image_1, Mat image_2);
     Mat calMutualInformation(Mat image_1, Mat image_2);
     double calMaxMutualInformationValue(Mat image_1, Mat image_2);
       
     /* Testing*/  
     
   private:
+    int getImages(string fixed_path, string moving_path);
     Mat calLog2(Mat image);
             
   public:

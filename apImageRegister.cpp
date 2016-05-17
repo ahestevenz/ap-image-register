@@ -36,10 +36,11 @@ int ImageRegister::getImages(string fixed_path, string moving_path)
   return OK;
 }
 
-Mat ImageRegister::calLog2(Mat image)
+Mat ImageRegister::calLog2(Mat mat_src)
 {
-  Mat loge_mat;
-  log(image,loge_mat);
+  Mat mat_corr,loge_mat;
+  max(mat_src, Scalar::all(1e-10), mat_corr);  
+  log(mat_corr,loge_mat);
   Mat log2_mat=loge_mat/log(2);
   
   return log2_mat;
@@ -92,12 +93,16 @@ float ImageRegister::calEntropy(Mat image)
   return entropy;
 }
 
-Mat ImageRegister::calJointEntropy(Mat image_1, Mat image_2)
+float ImageRegister::calJointEntropy(Mat image_1, Mat image_2)
 {
   /* TODO
-   * > Implement this method
+   * > Verify this calculation
    */
-  Mat je; 
+  float je;
+  Mat jpdf=calJointHistogram(image_1,image_2);
+  jpdf=jpdf/(sum(jpdf).val[0]); // Normalized Joint Histogram       
+  Mat logJP=calLog2(jpdf);       
+  je = -1*sum(jpdf.mul(logJP)).val[0]; 
   
   return je;
 }
