@@ -21,7 +21,7 @@ namespace ap
     Mat calJointHistogram(Mat image_1, Mat image_2);
     float calEntropy(Mat image);
     float calJointEntropy(Mat image_1, Mat image_2);
-    Mat calMutualInformation(Mat image_1, Mat image_2);
+    float calMutualInformation(Mat image_1, Mat image_2);
     double calMaxMutualInformationValue(Mat image_1, Mat image_2);
       
     /* Testing*/  

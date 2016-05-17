@@ -107,13 +107,14 @@ float ImageRegister::calJointEntropy(Mat image_1, Mat image_2)
   return je;
 }
 
-Mat ImageRegister::calMutualInformation(Mat image_1, Mat image_2)
-{
-  /* TODO
-   * > Implement this method
-   */
-  Mat mi; 
-  
+float ImageRegister::calMutualInformation(Mat image_1, Mat image_2)
+{  
+  float mi; 
+  float entropy_1=calEntropy(image_1);
+  float entropy_2=calEntropy(image_2);
+  float joint_entropy=calJointEntropy(image_1,image_2);  
+  mi=entropy_1+entropy_2-joint_entropy;
+    
   return mi;
 }
 
