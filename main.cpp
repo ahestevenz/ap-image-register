@@ -58,7 +58,8 @@ int main( int argc, char** argv )
   /* Testing */
   
   cout << "Fixed image entropy : " << imgRegister.calEntropy(imgRegister.getFixedImage()) << endl;
-  cout << "Moving image entropy : " << imgRegister.calEntropy(imgRegister.getMovingImage()) << endl;
+  cout << "Moving image entropy : " << imgRegister.calEntropy(imgRegister.getMovingImage()) << endl;  
+  cout << "Joint Entropy : " << imgRegister.calJointEntropy(imgRegister.getFixedImage(),imgRegister.getMovingImage()) << endl;  
   
   /* Display images and histograms */
   
