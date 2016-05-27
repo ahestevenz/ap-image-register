@@ -60,7 +60,9 @@ int main( int argc, char** argv )
   cout << "Fixed image entropy : " << imgRegister.calEntropy(imgRegister.getFixedImage()) << endl;
   cout << "Moving image entropy : " << imgRegister.calEntropy(imgRegister.getMovingImage()) << endl;  
   cout << "Joint Entropy : " << imgRegister.calJointEntropy(imgRegister.getFixedImage(),imgRegister.getMovingImage()) << endl; 
-  cout << "Mutual Information : " << imgRegister.calMutualInformation(imgRegister.getFixedImage(),imgRegister.getMovingImage()) << endl;  
+  cout << "Mutual Information : " << imgRegister.calMutualInformation(imgRegister.getFixedImage(),imgRegister.getMovingImage()) << endl; 
+  
+  imgRegister.calMaxMutualInformationValue(imgRegister.getFixedImage(),imgRegister.getMovingImage(),1,1);
   
   /* Display images and histograms */
   
