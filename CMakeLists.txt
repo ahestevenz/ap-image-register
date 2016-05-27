@@ -5,6 +5,7 @@ find_package(OpenCV)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${OpenCV_INCLUDE_DIRS})
 
 set(apImageRegister_SRCS apImageRegister.cpp main.cpp)
+set(CMAKE_CXX_FLAGS "-std=gnu++0x")
 
 add_executable(imregister ${apImageRegister_SRCS})
 
