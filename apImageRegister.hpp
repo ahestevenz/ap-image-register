@@ -2,7 +2,10 @@
 #define apImageRegister_H
 
 #include <iostream>
+#include <random>
 #include <opencv2/opencv.hpp>
+
+# define pi 3.14159265358979323846
 
 using namespace std;
 using namespace cv;
@@ -22,21 +25,24 @@ namespace ap
     float calEntropy(Mat image);
     float calJointEntropy(Mat image_1, Mat image_2);
     float calMutualInformation(Mat image_1, Mat image_2);
-    double calMaxMutualInformationValue(Mat image_1, Mat image_2);
+    double calMaxMutualInformationValue(Mat image_1, Mat image_2, int points, int max_iterations=2500);
       
-    /* Testing*/  
+    /* Testing*/      
     
   private:
     int getImages(string fixed_path, string moving_path);
-    Mat calLog2(Mat image);
+    double getNormalRandomNumber(double mean, double stddev, int type);
+    Mat calLog2(Mat image);    
             
   public:
     static const int OK=0;
     static const int FAILURE=-1;
+    static const int STANDARD=10;
     
   private:
     Mat fixed, moving;
     int histSize;
+    default_random_engine generator;
     
   public:
     int getHistSize() const { return histSize; }
@@ -44,7 +50,7 @@ namespace ap
     Mat getMovingImage() const { return moving; }
 
     /* Testing*/
-      
+         
   };
 }
 

@@ -5,7 +5,7 @@ using namespace ap;
 ImageRegister::ImageRegister(string fixed_path, string moving_path)
   :histSize(255)
 {
-  getImages(fixed_path,moving_path);
+  getImages(fixed_path,moving_path); 
 }
 
 ImageRegister::~ImageRegister()
@@ -44,6 +44,17 @@ Mat ImageRegister::calLog2(Mat mat_src)
   Mat log2_mat=loge_mat/log(2);
   
   return log2_mat;
+}
+
+double ImageRegister::getNormalRandomNumber(double mean, double stddev, int type)
+{
+  /* TODO
+   * > Add different generator modes   
+   */
+  normal_distribution<double> distribution(mean,stddev);
+  double na=distribution(generator);  
+
+  return na;
 }
 
 
@@ -118,13 +129,39 @@ float ImageRegister::calMutualInformation(Mat image_1, Mat image_2)
   return mi;
 }
 
-double ImageRegister::calMaxMutualInformationValue(Mat image_1, Mat image_2)
+double ImageRegister::calMaxMutualInformationValue(Mat image_1, Mat image_2, int points, int max_iterations)
 {
   /* TODO
-   * > Implement this method
+   * > Develop image rotation and translation methods
+   * > Save matrices and vectors in debug mode
+   * > Develop the Simulated Annealing method
    */
   double max_mi; 
+  double mi_init=calMutualInformation(image_1,image_2);
   
+  /* Initial values */
+  double mi_test=mi_init;
+  double th_accept=0.0175; // degtorad(1)
+  double tx_accept=0;
+  double ty_accept=0;
+  
+  /* Gaussian window parameters */
+  double w_radians_a=-(pi/2)*pow(10,-8);
+  double w_radians_b=(pi/4);
+  double w_pixels_a=-4*pow(10,-8);
+  double w_pixels_b=2;
+  int i=1;
+  int valid_points=1;
+  
+   while( valid_points < points )
+    {
+      if (i>max_iterations); break;
+      double th=getNormalRandomNumber(th_accept,w_radians_a*i+w_radians_b, STANDARD);
+      double tx=getNormalRandomNumber(tx_accept,w_pixels_a*i+w_pixels_b, STANDARD);
+      double ty=getNormalRandomNumber(ty_accept,w_pixels_a*i+w_pixels_b, STANDARD);
+ 
+      i++;
+    }
   return max_mi;
 }
 
